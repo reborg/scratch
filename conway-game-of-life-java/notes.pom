@@ -1,0 +1,5 @@
+other facts:
+	- given a random non empty grid, the next generation is always different than the given state
+	- a block doesn't need to be in the middle, it works fine in a 9x9 grid on a side
+	- a block is also an example of cell with exactly 3 neighbours that never dies
+	- the classic oscillator horizonal-vertical is an example of middle cell with exactly two neighbours that never dies

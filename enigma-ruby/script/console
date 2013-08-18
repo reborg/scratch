@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+# File: script/console
+irb = RUBY_PLATFORM =~ /(:?mswin|mingw)/ ? 'irb.bat' : 'irb'
+
+libs = " -r irb/completion"
+#libs <<  " -r #{File.dirname(__FILE__) + '/../lib/template.rb'}"
+puts "Loading project interactive console"
+exec "#{irb} #{libs} --simple-prompt"

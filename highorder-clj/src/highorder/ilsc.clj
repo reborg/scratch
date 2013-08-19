@@ -1,4 +1,5 @@
 (ns highorder.ilsc
+  (:require [clojure.core.reducers :as r])
   (:refer-clojure :exclude [map filter reduce reverse]))
 
 (defn split [coll f]
@@ -8,12 +9,17 @@
     (let [middle (/ (count coll) 2)]
       (f (take middle coll) (drop middle coll))))
 
+;;(defn mapreduce [f g id coll]
+;;  "The condition for the singleton list is necessary because
+;;  split accepts to split a one element list into a one element list
+;;  forever."
+;;  (cond (empty? coll) id
+;;        (= 1 (count coll)) (f (first coll))
+;;        :else (split coll (fn [coll1 coll2] (g (mapreduce f g id coll1) (mapreduce f g id coll2))))))
+
 (defn mapreduce [f g id coll]
-  "The condition for the singleton list is necessary because
-  split accepts to split a one element list into a one element list
-  forever."
   (cond (empty? coll) id
-        (= 1 (count coll)) (f (first coll))
+        (<= (count coll) 10) (clojure.core/reduce g id (r/map f coll))
         :else (split coll (fn [coll1 coll2] (g (mapreduce f g id coll1) (mapreduce f g id coll2))))))
 
 (defn map [f coll]

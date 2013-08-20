@@ -4,13 +4,12 @@
 
 (facts "high order operations built on top of reducers instead"
        (fact "map"
-             (time (c/map #(* % %) (range 10000))) => (contains '(1 4 9))
-             (time (doall (map #(* % %) (range 10000)))) => (contains '(1 4 9)))
+             (time (c/map #(* % %) (vec (range 100000)))) => (contains '(1 4 9)))
        (fact "reduce"
-             (time (c/reduce + (range 10000))) => 49995000)
+             (time (c/reduce + (vec (range 100000)))) => 4999950000)
        (fact "length"
-             (time (c/length (range 100000))) => 100000)
+             (time (c/length (vec (range 1000000)))) => 1000000)
        (fact "filter"
-             (time (c/filter odd? (range 10000))) => (contains '(1 3)))
-       (fact "reversing"
-             (take 4 (time (c/reverse (range 10000)))) => '(9999 9998 9997 9996)))
+             (time (c/filter odd? (vec (range 100000)))) => (contains '(1 3))))
+       ;;(fact "reversing"
+       ;;      (time (c/reverse (vec (range 10000)))) => '(9999 9998 9997 9996)))

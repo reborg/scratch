@@ -6,7 +6,7 @@
        (fact "map"
              (c/map #(* % %) (range 10000)) => (contains '(1 4 9)))
        (fact "reduce"
-             (time (c/reduce + 0 (range 100000))) => 4999950000)
+             (c/reduce + 0 (range 100000)) => 4999950000)
        (fact "mapreduce"
              (c/mapreduce #(* % %) + 0 (range 1000)) => 332833500)
        (fact "length"

@@ -2,14 +2,15 @@
   (:use midje.sweet)
   (:require [highorder.reducers :as c]))
 
-(facts "high order operations built with reducers instead"
+(facts "high order operations built on top of reducers instead"
        (fact "map"
-             (c/map #(* % %) (range 1000)) => (contains '(1 4 9)))
+             (time (c/map #(* % %) (range 10000))) => (contains '(1 4 9))
+             (time (doall (map #(* % %) (range 10000)))) => (contains '(1 4 9)))
        (fact "reduce"
-             (c/reduce + (range 10000)) => 49995000)
+             (time (c/reduce + (range 10000))) => 49995000)
        (fact "length"
-             (c/length (range 100000)) => 100000)
+             (time (c/length (range 100000))) => 100000)
        (fact "filter"
-             (c/filter odd? (range 1000)) => (contains '(1 3)))
+             (time (c/filter odd? (range 10000))) => (contains '(1 3)))
        (fact "reversing"
-             (take 4 (c/reverse (range 1000))) => '(999 998 997 996)))
+             (take 4 (time (c/reverse (range 10000)))) => '(9999 9998 9997 9996)))
